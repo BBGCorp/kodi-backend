@@ -1,0 +1,24 @@
+{
+  "name": "kodi-backend",
+  "version": "2.0.0",
+  "description": "Kodi AI Investment Advisor — Backend server for Blue Bear Group Corporation",
+  "main": "kodi-backend-server.js",
+  "scripts": {
+    "start": "node kodi-backend-server.js",
+    "dev": "nodemon kodi-backend-server.js",
+    "scrape": "node -e \"require('./kodi-backend-server.js')\" --scrape-only"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "node-fetch": "^2.7.0",
+    "cheerio": "^1.0.0-rc.12",
+    "node-cron": "^3.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
