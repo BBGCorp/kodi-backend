@@ -123,21 +123,53 @@ const PAGES_TO_SCRAPE = [
 ];
 
 const KNOWLEDGE_FILE = path.join(__dirname, 'learned-knowledge.json');
+const MANUAL_KNOWLEDGE_FILE = path.join(__dirname, 'manual-knowledge.json');
 
-// Load previously scraped knowledge from disk
+// Load previously scraped knowledge from disk, plus any manually curated knowledge
 function loadDynamicKnowledge() {
+  let parts = [];
+
+  // 1. Load manually curated knowledge (takes priority — listed first)
+  try {
+    if (fs.existsSync(MANUAL_KNOWLEDGE_FILE)) {
+      const manual = JSON.parse(fs.readFileSync(MANUAL_KNOWLEDGE_FILE, 'utf8'));
+
+      if (manual.investment_details) {
+        parts.push(`[BBG INVESTMENT DETAILS]\n${manual.investment_details}`);
+      }
+      if (manual.faqs && manual.faqs.length) {
+        const faqText = manual.faqs.map(f => `Q: ${f.q}\nA: ${f.a}`).join('\n\n');
+        parts.push(`[FREQUENTLY ASKED QUESTIONS]\n${faqText}`);
+      }
+      if (manual.team && manual.team.length) {
+        const teamText = manual.team.map(m => `${m.name} — ${m.role}: ${m.bio}`).join('\n');
+        parts.push(`[BBG TEAM]\n${teamText}`);
+      }
+      if (manual.current_opportunities) {
+        parts.push(`[CURRENT INVESTMENT OPPORTUNITIES]\n${manual.current_opportunities}`);
+      }
+      if (manual.extra_notes) {
+        parts.push(`[ADDITIONAL NOTES]\n${manual.extra_notes}`);
+      }
+    }
+  } catch (e) {
+    console.error('Error loading manual knowledge:', e);
+  }
+
+  // 2. Load auto-scraped website knowledge
   try {
     if (fs.existsSync(KNOWLEDGE_FILE)) {
       const data = JSON.parse(fs.readFileSync(KNOWLEDGE_FILE, 'utf8'));
-      // Combine all page contents into a single knowledge string
-      return Object.entries(data.pages || {})
+      const scraped = Object.entries(data.pages || {})
         .map(([url, info]) => `[Source: ${url}]\n${info.content}`)
         .join('\n\n');
+      if (scraped) parts.push(`[WEBSITE CONTENT]\n${scraped}`);
     }
   } catch (e) {
-    console.error('Error loading knowledge:', e);
+    console.error('Error loading scraped knowledge:', e);
   }
-  return '';
+
+  return parts.join('\n\n');
 }
 
 // Scrape a single page and extract meaningful text content

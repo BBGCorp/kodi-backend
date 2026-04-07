@@ -1,0 +1,49 @@
+{
+  "_instructions": "Fill in the fields below with your real BBG business details. Kodi will use this information when answering investor questions. Delete this _instructions field when done. Push this file to your GitHub repo (BBGCorp/kodi-backend) and Render will redeploy automatically.",
+
+  "investment_details": "Minimum investment: [e.g. $50,000]. Preferred share dividend rate: [e.g. 8% per annum]. Distributions paid: [e.g. quarterly]. Investment term: [e.g. 3-5 years]. Available to: [e.g. Canadian accredited investors and select international investors]. How to invest: Schedule a consultation call, complete KYC and accreditation documents, sign subscription agreement, wire funds. Funds are deployed within [X] days of closing.",
+
+  "faqs": [
+    {
+      "q": "What is the minimum investment amount?",
+      "a": "[Replace with your actual minimum, e.g.: The minimum investment is $50,000 for Preferred Shares.]"
+    },
+    {
+      "q": "How are returns paid out?",
+      "a": "[Replace with actual details, e.g.: Eligible dividends are distributed quarterly directly to your registered account or bank account.]"
+    },
+    {
+      "q": "Is my investment TFSA or RRSP eligible?",
+      "a": "Yes — BBG Preferred Shares can be held inside a TFSA for tax-free growth, or an RRSP for tax-deferred growth. We recommend consulting your financial advisor to confirm eligibility for your specific account."
+    },
+    {
+      "q": "Can international investors participate?",
+      "a": "Yes, BBG welcomes international investors. Canada has tax treaties with many countries that may reduce withholding tax on eligible dividends. We recommend consulting a tax professional in your home country."
+    },
+    {
+      "q": "How does the property acquisition process work?",
+      "a": "BBG conducts full due diligence on every property — analyzing NOI, IRR, cash-on-cash returns, neighbourhood trends, and rental demand. Only properties meeting our strict criteria are acquired. Investors receive updates on portfolio performance."
+    },
+    {
+      "q": "What makes BBG different from other real estate investments?",
+      "a": "BBG combines institutional-grade due diligence with accessible investment structures. We focus on Canada's strongest rental markets, offer preferred share structures for income stability, and provide fully managed exposure — no landlord responsibilities for investors."
+    }
+  ],
+
+  "team": [
+    {
+      "name": "[Team Member Name]",
+      "role": "[Title, e.g. CEO & Founder]",
+      "bio": "[Brief bio, e.g. 15 years in Canadian real estate, previously at XYZ firm, specializes in multifamily acquisitions across Ontario and BC.]"
+    },
+    {
+      "name": "[Team Member Name]",
+      "role": "[Title]",
+      "bio": "[Brief bio]"
+    }
+  ],
+
+  "current_opportunities": "[Describe any active investment opportunities, e.g.: Currently raising for Phase 2 of our Toronto multifamily portfolio — targeting 8 properties across the GTA. Preferred shares available at 8% annual dividend. Limited spots remaining for Q2 2026 close.]",
+
+  "extra_notes": "[Any other information Kodi should know — e.g. upcoming events, recent acquisitions, awards, press coverage, or anything prospects commonly ask about.]"
+}
