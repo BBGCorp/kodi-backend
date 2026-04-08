@@ -1,49 +1,50 @@
 {
-  "_instructions": "Fill in the fields below with your real BBG business details. Kodi will use this information when answering investor questions. Delete this _instructions field when done. Push this file to your GitHub repo (BBGCorp/kodi-backend) and Render will redeploy automatically.",
-
-  "investment_details": "Minimum investment: [e.g. $50,000]. Preferred share dividend rate: [e.g. 8% per annum]. Distributions paid: [e.g. quarterly]. Investment term: [e.g. 3-5 years]. Available to: [e.g. Canadian accredited investors and select international investors]. How to invest: Schedule a consultation call, complete KYC and accreditation documents, sign subscription agreement, wire funds. Funds are deployed within [X] days of closing.",
+  "investment_details": "BBG Corp. offers investment access through Preferred Shares and Limited Partnership Units. Open to both Canadian accredited investors and select international investors. Canadian investors can hold investments inside a TFSA (tax-free growth) or RRSP (tax-deferred growth). Preferred shareholders receive eligible dividends — taxed more favourably than interest income. International investors may benefit from Canada's tax treaties. To invest: schedule a consultation call, complete KYC and accreditation documents, sign a subscription agreement, and wire funds. For specific investment minimums, dividend rates, and available tranches, please contact us at investors@bluebeargroup.ca or +1 437 826 4847.",
 
   "faqs": [
     {
       "q": "What is the minimum investment amount?",
-      "a": "[Replace with your actual minimum, e.g.: The minimum investment is $50,000 for Preferred Shares.]"
+      "a": "Our investment minimums vary depending on the share class or Limited Partnership unit structure. We'd be happy to walk you through the options during a complimentary consultation — please reach out to us at investors@bluebeargroup.ca or call +1 437 826 4847."
     },
     {
       "q": "How are returns paid out?",
-      "a": "[Replace with actual details, e.g.: Eligible dividends are distributed quarterly directly to your registered account or bank account.]"
+      "a": "Investors receive eligible dividends through BBG's Preferred Share structure. Distributions are paid directly to your registered account or bank account. For the specific distribution schedule and rates applicable to current opportunities, we invite you to book a consultation with our team."
     },
     {
       "q": "Is my investment TFSA or RRSP eligible?",
-      "a": "Yes — BBG Preferred Shares can be held inside a TFSA for tax-free growth, or an RRSP for tax-deferred growth. We recommend consulting your financial advisor to confirm eligibility for your specific account."
+      "a": "Yes — BBG Preferred Shares are eligible to be held inside a TFSA for tax-free growth, or an RRSP for tax-deferred growth. We always recommend consulting your financial advisor to confirm eligibility for your specific account and situation."
     },
     {
       "q": "Can international investors participate?",
-      "a": "Yes, BBG welcomes international investors. Canada has tax treaties with many countries that may reduce withholding tax on eligible dividends. We recommend consulting a tax professional in your home country."
+      "a": "Yes, BBG warmly welcomes international investors. Canada has tax treaties with many countries that may reduce withholding tax on eligible dividends. We recommend consulting a qualified tax professional in your home country for personalised guidance."
     },
     {
       "q": "How does the property acquisition process work?",
-      "a": "BBG conducts full due diligence on every property — analyzing NOI, IRR, cash-on-cash returns, neighbourhood trends, and rental demand. Only properties meeting our strict criteria are acquired. Investors receive updates on portfolio performance."
+      "a": "BBG conducts thorough due diligence on every property — evaluating NOI, IRR, cash-on-cash returns, neighbourhood trends, vacancy rates, and rental demand. We target 'Value-Plus' opportunities in Canada's fastest-growing urban centres. Only properties meeting our strict criteria are acquired, and investors receive regular updates on portfolio performance."
     },
     {
       "q": "What makes BBG different from other real estate investments?",
-      "a": "BBG combines institutional-grade due diligence with accessible investment structures. We focus on Canada's strongest rental markets, offer preferred share structures for income stability, and provide fully managed exposure — no landlord responsibilities for investors."
+      "a": "BBG combines institutional-grade due diligence with accessible investment structures. We focus on tech-integrated, community-focused multifamily properties in Canada's strongest rental markets. Our Preferred Share model provides income stability and priority status over common shareholders — giving investors a lower-risk, passive exposure to Canadian real estate without any landlord responsibilities."
+    },
+    {
+      "q": "What is BBG's vision?",
+      "a": "By 2030, BBG aims to lead the Canadian multifamily real estate market in Canada's top 5 fastest-growing cities. Our mission is to actively address Canada's housing needs by developing and acquiring sustainable, high-quality, affordable rental properties — while delivering superior, purpose-driven returns for our investors."
+    },
+    {
+      "q": "What properties does BBG currently hold?",
+      "a": "Our portfolio includes The 311 de la Grande-Côte I — a 5-unit quintuplex in Saint-Eustache, Quebec, well-positioned near the REM transit line connecting to downtown Montreal. We are also developing The Creekside Circle I in Leduc, Alberta — a 10-unit townhome project near Edmonton International Airport, with completion estimated for mid-2026. We continue to source new acquisitions across Canada's high-demand urban markets."
     }
   ],
 
   "team": [
     {
-      "name": "[Team Member Name]",
-      "role": "[Title, e.g. CEO & Founder]",
-      "bio": "[Brief bio, e.g. 15 years in Canadian real estate, previously at XYZ firm, specializes in multifamily acquisitions across Ontario and BC.]"
-    },
-    {
-      "name": "[Team Member Name]",
-      "role": "[Title]",
-      "bio": "[Brief bio]"
+      "name": "BBG Corp. Investment Team",
+      "role": "Multifamily Real Estate Specialists",
+      "bio": "The BBG Corp. team is comprised of Canadian real estate professionals specialising in multifamily property acquisition, asset management, and investor relations. For team bios and leadership profiles, please visit www.bluebeargroup.ca or contact us directly."
     }
   ],
 
-  "current_opportunities": "[Describe any active investment opportunities, e.g.: Currently raising for Phase 2 of our Toronto multifamily portfolio — targeting 8 properties across the GTA. Preferred shares available at 8% annual dividend. Limited spots remaining for Q2 2026 close.]",
+  "current_opportunities": "BBG Corp. currently has two active portfolio properties: (1) The 311 de la Grande-Côte I — a quintuplex in Saint-Eustache, Quebec, offering four rental units with proximity to the REM transit line to downtown Montreal. (2) The Creekside Circle I — a new construction project of 10 townhomes in Leduc, Alberta (near Edmonton), with a 0.8% vacancy rate in the local market and estimated completion in mid-2026. Investment opportunities are available through Preferred Shares and Limited Partnership Units. Contact investors@bluebeargroup.ca to learn about current availability and terms.",
 
-  "extra_notes": "[Any other information Kodi should know — e.g. upcoming events, recent acquisitions, awards, press coverage, or anything prospects commonly ask about.]"
+  "extra_notes": "BBG Corp. is headquartered at 2967 Dundas St. W. #965, Toronto, ON, M6P 1Z2. Phone: +1 437 826 4847. Email: investors@bluebeargroup.ca. Website: www.bluebeargroup.ca. Social: LinkedIn (bluebeargroup), X/Twitter (@BBGCorporation), YouTube (@BlueBearGroupCorp). BBG offers free investment reports — prospects can access them at www.bluebeargroup.ca. The company's core values are: Quality & Safety, Community Focus, Sustainability, Integrity, Investor Success, and Innovation. BBG targets Canada's top urban growth centres and focuses on tech-integrated, community-focused multifamily properties that balance strong financial performance with tenant well-being."
 }
