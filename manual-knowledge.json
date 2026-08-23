@@ -1,50 +1,59 @@
 {
-  "investment_details": "BBG Corp. offers investment access through Preferred Shares and Limited Partnership Units. Open to both Canadian accredited investors and select international investors. Canadian investors can hold investments inside a TFSA (tax-free growth) or RRSP (tax-deferred growth). Preferred shareholders receive eligible dividends — taxed more favourably than interest income. International investors may benefit from Canada's tax treaties. To invest: schedule a consultation call, complete KYC and accreditation documents, sign a subscription agreement, and wire funds. For specific investment minimums, dividend rates, and available tranches, please contact us at investors@bluebeargroup.ca or +1 437 826 4847.",
+  "investment_details": "Blue Bear Group Corp. offers investment access through Limited Partnership Units in BBG Holding I LP and BBG Holding II LP, as well as Preferred Shares in BBG Corp. itself. Open to both Canadian accredited investors and select international investors, including UAE and GCC-based family offices. Canadian investors may hold BBG Preferred Shares inside a TFSA (tax-free growth) or RRSP (tax-deferred growth); LP units are typically held outside registered accounts. Preferred shareholders receive eligible dividends, taxed more favourably than interest income. International investors may benefit from Canada's tax treaties. To invest: schedule a consultation call, complete KYC and accreditation documents through our onboarding platform, sign a subscription agreement, and fund your commitment. For specific investment minimums, distribution schedules, and available tranches, please contact us at investors@bluebeargroup.ca or +1 437 826 4847.",
 
   "faqs": [
     {
       "q": "What is the minimum investment amount?",
-      "a": "Our investment minimums vary depending on the share class or Limited Partnership unit structure. We'd be happy to walk you through the options during a complimentary consultation — please reach out to us at investors@bluebeargroup.ca or call +1 437 826 4847."
+      "a": "Our investment minimums vary by fund and unit structure. We'd be happy to walk you through current options during a complimentary consultation — please reach out to us at investors@bluebeargroup.ca or call +1 437 826 4847."
     },
     {
       "q": "How are returns paid out?",
-      "a": "Investors receive eligible dividends through BBG's Preferred Share structure. Distributions are paid directly to your registered account or bank account. For the specific distribution schedule and rates applicable to current opportunities, we invite you to book a consultation with our team."
+      "a": "BBG Holding LP investors receive distributions through a tiered waterfall structure once a fund reaches stabilization. BBG Corp. Preferred shareholders receive eligible dividends. Distributions are paid directly to your registered account or bank account. For the specific distribution schedule and rates applicable to current opportunities, we invite you to book a consultation with our team."
     },
     {
       "q": "Is my investment TFSA or RRSP eligible?",
-      "a": "Yes — BBG Preferred Shares are eligible to be held inside a TFSA for tax-free growth, or an RRSP for tax-deferred growth. We always recommend consulting your financial advisor to confirm eligibility for your specific account and situation."
+      "a": "BBG Preferred Shares are eligible to be held inside a TFSA for tax-free growth, or an RRSP for tax-deferred growth. LP units are generally held outside registered accounts. We always recommend consulting your financial advisor to confirm eligibility for your specific account and situation."
     },
     {
       "q": "Can international investors participate?",
-      "a": "Yes, BBG warmly welcomes international investors. Canada has tax treaties with many countries that may reduce withholding tax on eligible dividends. We recommend consulting a qualified tax professional in your home country for personalised guidance."
+      "a": "Yes, Blue Bear Group Corp. welcomes international investors, including family offices in the UAE and wider GCC region. Canada has tax treaties with many countries that may reduce withholding tax on eligible dividends. We recommend consulting a qualified tax professional in your home country for personalised guidance."
     },
     {
       "q": "How does the property acquisition process work?",
-      "a": "BBG conducts thorough due diligence on every property — evaluating NOI, IRR, cash-on-cash returns, neighbourhood trends, vacancy rates, and rental demand. We target 'Value-Plus' opportunities in Canada's fastest-growing urban centres. Only properties meeting our strict criteria are acquired, and investors receive regular updates on portfolio performance."
+      "a": "BBG conducts thorough due diligence on every property — evaluating NOI, IRR, cash-on-cash returns, neighbourhood trends, vacancy rates, and rental demand, supported by independent third-party appraisals. We target multifamily opportunities in Canada's fastest-growing urban centres. Only properties meeting our underwriting screen are acquired, and investors receive regular updates on portfolio performance."
     },
     {
       "q": "What makes BBG different from other real estate investments?",
-      "a": "BBG combines institutional-grade due diligence with accessible investment structures. We focus on tech-integrated, community-focused multifamily properties in Canada's strongest rental markets. Our Preferred Share model provides income stability and priority status over common shareholders — giving investors a lower-risk, passive exposure to Canadian real estate without any landlord responsibilities."
+      "a": "Blue Bear Group Corp. applies institutional-grade private equity discipline — a GP/LP fund structure with aligned economics — to Canadian multifamily real estate. We focus on tech-integrated, community-focused properties in Canada's strongest rental markets. Our fund structure provides income-oriented, passive exposure to Canadian real estate without landlord responsibilities."
     },
     {
       "q": "What is BBG's vision?",
-      "a": "By 2030, BBG aims to lead the Canadian multifamily real estate market in Canada's top 5 fastest-growing cities. Our mission is to actively address Canada's housing needs by developing and acquiring sustainable, high-quality, affordable rental properties — while delivering superior, purpose-driven returns for our investors."
+      "a": "By 2030, Blue Bear Group Corp. aims to be among Canada's fastest-growing multifamily real estate platforms, active in five of the country's fastest-growing cities. Our mission is to address Canada's housing needs by acquiring and developing sustainable, high-quality rental properties while delivering purpose-driven returns for our investors."
     },
     {
       "q": "What properties does BBG currently hold?",
-      "a": "Our portfolio includes The 311 de la Grande-Côte I — a 5-unit quintuplex in Saint-Eustache, Quebec, well-positioned near the REM transit line connecting to downtown Montreal. We are also developing The Creekside Circle I in Leduc, Alberta — a 10-unit townhome project near Edmonton International Airport, with completion estimated for mid-2026. We continue to source new acquisitions across Canada's high-demand urban markets."
+      "a": "Our portfolio spans two limited partnerships across Quebec and Alberta. BBG Holding I LP holds The 311 de la Grande-Côte I — a stabilized, operating 5-unit multifamily property in Saint-Eustache, Quebec, near the REM transit line to downtown Montreal. BBG Holding II LP is deploying capital into Alberta, including three new-construction projects in the Leduc and Edmonton area — Creekside Circle I (10 units), a second Creekside townhome phase (12 units), and the Pleasantview Fourplex in southwest Edmonton (8 units) — all targeted for 2026 completion. We continue to source new acquisitions across Canada's high-demand urban markets."
+    },
+    {
+      "q": "What is the current size of BBG's portfolio?",
+      "a": "Blue Bear Group Corp. currently manages two limited partnerships — BBG Holding I LP and BBG Holding II LP — spanning four properties and 35 total units across Quebec and Alberta. BBG Holding I LP's Saint-Eustache property is stabilized and operating; BBG Holding II LP's Alberta properties are in pre-construction and due diligence. Contact investors@bluebeargroup.ca for the latest availability and terms."
     }
   ],
 
   "team": [
     {
+      "name": "Dory Jade",
+      "role": "President, Blue Bear Group Corp.",
+      "bio": "Dory Jade leads Blue Bear Group Corp. as President, overseeing fund strategy, acquisitions, and investor relations across BBG's Canadian multifamily portfolio. For further team bios and leadership profiles, please visit www.bluebeargroup.ca or contact us directly."
+    },
+    {
       "name": "BBG Corp. Investment Team",
       "role": "Multifamily Real Estate Specialists",
-      "bio": "The BBG Corp. team is comprised of Canadian real estate professionals specialising in multifamily property acquisition, asset management, and investor relations. For team bios and leadership profiles, please visit www.bluebeargroup.ca or contact us directly."
+      "bio": "The Blue Bear Group Corp. team is comprised of Canadian real estate professionals specialising in multifamily property acquisition, asset management, and investor relations. For team bios and leadership profiles, please visit www.bluebeargroup.ca or contact us directly."
     }
   ],
 
-  "current_opportunities": "BBG Corp. currently has two active portfolio properties: (1) The 311 de la Grande-Côte I — a quintuplex in Saint-Eustache, Quebec, offering four rental units with proximity to the REM transit line to downtown Montreal. (2) The Creekside Circle I — a new construction project of 10 townhomes in Leduc, Alberta (near Edmonton), with a 0.8% vacancy rate in the local market and estimated completion in mid-2026. Investment opportunities are available through Preferred Shares and Limited Partnership Units. Contact investors@bluebeargroup.ca to learn about current availability and terms.",
+  "current_opportunities": "Blue Bear Group Corp. currently manages two active limited partnerships across four properties and 35 total units in Quebec and Alberta. BBG Holding I LP holds The 311 de la Grande-Côte I, a stabilized 5-unit multifamily property in Saint-Eustache, Quebec, near the REM transit line to downtown Montreal. BBG Holding II LP is deploying capital into Alberta, with three new-construction projects in the Leduc and Edmonton area: Creekside Circle I (10 units, Leduc, near Edmonton International Airport), a second Creekside townhome phase (12 units, Leduc), and the Pleasantview Fourplex (8 units, southwest Edmonton) — all targeted for 2026 completion, in markets with purpose-built rental vacancy as low as 0.8%. Investment access is available through BBG Holding LP units and BBG Corp. Preferred Shares. Contact investors@bluebeargroup.ca to learn about current availability and terms.",
 
-  "extra_notes": "BBG Corp. is headquartered at 2967 Dundas St. W. #965, Toronto, ON, M6P 1Z2. Phone: +1 437 826 4847. Email: investors@bluebeargroup.ca. Website: www.bluebeargroup.ca. Social: LinkedIn (bluebeargroup), X/Twitter (@BBGCorporation), YouTube (@BlueBearGroupCorp). BBG offers free investment reports — prospects can access them at www.bluebeargroup.ca. The company's core values are: Quality & Safety, Community Focus, Sustainability, Integrity, Investor Success, and Innovation. BBG targets Canada's top urban growth centres and focuses on tech-integrated, community-focused multifamily properties that balance strong financial performance with tenant well-being."
+  "extra_notes": "Blue Bear Group Corp. is headquartered at 2967 Dundas St. W. #965, Toronto, ON, M6P 1Z2. Phone: +1 437 826 4847. Email: investors@bluebeargroup.ca. Website: www.bluebeargroup.ca. Social: LinkedIn (bluebeargroup), X/Twitter (@BBGCorporation), YouTube (@BlueBearGroupCorp). BBG offers free investment reports — prospects can access them at www.bluebeargroup.ca. The company's core values are: Quality & Safety, Community Focus, Sustainability, Integrity, Investor Success, and Innovation. Corporate tagline: 'Rooted in People, Grounded in Trust.' BBG targets Canada's top urban growth centres and focuses on tech-integrated, community-focused multifamily properties that balance strong financial performance with tenant well-being. BBG also welcomes UAE and GCC-based accredited investors as part of its cross-border investor relations program."
 }
