@@ -1,6 +1,6 @@
-// ══════════════════════════════════════════════════════════════════
+// ----
 // KODI BACKEND SERVER
-// ═══════════════════════════════════════════════════════════════════
+// ----
 // This Node.js server handles three critical functions:
 //
 // 1. API PROXY — Securely routes chatbot requests to Claude API
@@ -13,7 +13,7 @@
 // in your BBG team's Outlook calendar via Microsoft Graph API.
 //
 // DEPLOYMENT: Vercel, Railway, Render, or any Node.js host.
-// ══════════════════════════════════════════════════════════════
+// ----
 
 const express = require('express');
 const cors = require('cors');
@@ -27,9 +27,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// ─────────────────────────────────────────
-I// ENVIRONMENT VARIABLES (set these in your hosting platform)
-// ───────────────────────────────────────
+// ----
+// ENVIRONMENT VARIABLES (set these in your hosting platform)
+// ----
 const {
 // Anthropic API key — get from https://console.anthropic.com
 ANTHROPIC_API_KEY,
@@ -47,9 +47,9 @@ BBG_CALENDAR_EMAIL,
 PORT = 3001,
 } = process.env;
 
-// ══════════════════════════════════════
+// ----
 // SECTION 1: CLAUDE API PROXY
-// ═══════════════════════════════════════════
+// ----
 // This endpoint sits between the chatbot frontend and the
 // Anthropic API. The frontend sends messages here, this server
 // attaches the API key and forwards the request, then returns
@@ -96,9 +96,9 @@ text: 'I apologize — I\'m having a brief technical issue. Please contact our t
 }
 });
 
-// ═══════════════════════════════════════════
+// ----
 // SECTION 2: SELF-LEARNING WEB SCRAPER
-// ═══════════════════════════════════════════
+// ----
 // This system periodically crawls your website pages, extracts
 // the text content, compares it against what it already knows,
 // and saves any new or changed content to a local JSON file.
@@ -118,7 +118,7 @@ const PAGES_TO_SCRAPE = [
 'https://bluebeargroup.ca/multifamily-prop-acquis-1',
 'https://bluebeargroup.ca/preferred-shares-inv',
 'https://bluebeargroup.ca/property-management',
- ];
+];
 
 const KNOWLEDGE_FILE = path.join(__dirname, 'learned-knowledge.json');
 const MANUAL_KNOWLEDGE_FILE = path.join(__dirname, 'manual-knowledge.json');
@@ -210,7 +210,7 @@ return null;
 async function runFullScrape() {
 console.log(`[Kodi Scraper] Starting knowledge update at ${new Date().toISOString()}`);
 
-loet existingData = { pages: {}, lastUpdated: null };
+let existingData = { pages: {}, lastUpdated: null };
 try {
 if (fs.existsSync(KNOWLEDGE_FILE)) {
 existingData = JSON.parse(fs.readFileSync(KNOWLEDGE_FILE, 'utf8'));
@@ -298,14 +298,14 @@ res.status(500).json({ error: error.message });
 }
 });
 
-// ═══════════════════════════════════════════
+// ----
 // SECTION 3: OUTLOOK CALENDAR INTEGRATION
-// ═══════════════════════════════════════════
+// ----
 // This uses Microsoft Graph API to create calendar events
 // in your BBG team's Outlook calendar when prospects book
 // appointments through Kodi.
 //
-// ─── SETUP INSTRUCTIONS ───
+// ---- SETUP INSTRUCTIONS ----
 //
 // Step 1: Register an app in Azure Active Directory
 // 1. Go to https://portal.azure.com
@@ -338,7 +338,7 @@ res.status(500).json({ error: error.message });
 // MS_CLIENT_SECRET=your-client-secret
 // BBG_CALENDAR_EMAIL=investors@bluebeargroup.ca
 //
-// ─── END SETUP ───
+// ---- END SETUP ----
 
 // Get an access token from Microsoft using client credentials flow
 async function getMicrosoftAccessToken() {
@@ -502,9 +502,9 @@ error: 'Failed to create appointment. The team has been notified.',
 }
 });
 
-// ═══════════════════════════════════════════
+// ----
 // HEALTH CHECK & SERVER START
-// ═══════════════════════════════════════════
+// ----
 
 app.get('/api/health', (req, res) => {
 res.json({
@@ -520,11 +520,11 @@ timestamp: new Date().toISOString(),
 });
 
 app.listen(PORT, () => {
-console.log(`\n═══════════════════════════════════════`);
+console.log(`\n----`);
 console.log(` Kodi Backend Server v2`);
 console.log(` Port: ${PORT}`);
 console.log(` Chat Proxy: ${ANTHROPIC_API_KEY ? '✓ Active' : '✗ No API key'}`);
 console.log(` Outlook: ${MS_TENANT_ID ? '✓ Configured' : '✗ Not configured'}`);
 console.log(` Scraper: ✓ Runs every 6 hours`);
-console.log(`═══════════════════════════════════════\n`);
+console.log(`----\n`);
 });
