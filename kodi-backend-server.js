@@ -111,20 +111,24 @@ text: 'I apologize — I\'m having a brief technical issue. Please contact our t
 }
 }
 
-// A 200 OK with no usable text is the real bug we were chasing: the HTTP
-// call "succeeds" but the frontend has nothing to show, and it silently
-// falls back to the generic apology with zero server-side error to find.
-// Validate the actual shape and retry once before giving up.
-let hasText = data?.content?.[0]?.text && data.content[0].text.trim().length > 0;
+// The real bug: when Claude uses extended thinking on a substantial
+// question, the response content array is [thinking_block, text_block] —
+// the actual answer is NOT at content[0]. Both this backend and the
+// frontend widget assumed content[0] was always the text block, so a
+// perfectly good answer at content[1] was silently discarded as "empty."
+// Find the actual text block by type, not by position.
+const findTextBlock = (d) => d?.content?.find(b => b.type === 'text' && b.text && b.text.trim().length > 0);
 
-if (!hasText) {
-console.warn(`[Kodi Chat] 200 OK but empty/unusable content — stop_reason: ${data?.stop_reason}, content: ${JSON.stringify(data?.content)}. Retrying once.`);
+let textBlock = findTextBlock(data);
+
+if (!textBlock) {
+console.warn(`[Kodi Chat] 200 OK but no usable text block — stop_reason: ${data?.stop_reason}, content: ${JSON.stringify(data?.content)}. Retrying once.`);
 response = await callAnthropic();
 data = await response.json();
-hasText = data?.content?.[0]?.text && data.content[0].text.trim().length > 0;
+textBlock = findTextBlock(data);
 
-if (!hasText) {
-console.error(`[Kodi Chat] Still empty after retry — stop_reason: ${data?.stop_reason}, full response: ${JSON.stringify(data)}`);
+if (!textBlock) {
+console.error(`[Kodi Chat] Still no text block after retry — stop_reason: ${data?.stop_reason}, full response: ${JSON.stringify(data)}`);
 return res.status(200).json({
 content: [{
 type: 'text',
@@ -134,7 +138,10 @@ text: 'I apologize — I wasn\'t able to put together a full answer to that. Cou
 }
 }
 
-res.json(data);
+// Normalize: always return content[0] as the text block, regardless of
+// where thinking blocks landed in Anthropic's original response. This
+// matches what the frontend widget expects (b.content[0].text).
+res.json({ ...data, content: [textBlock] });
 } catch (error) {
 console.error('[Kodi Chat] Proxy error:', error);
 res.status(500).json({
