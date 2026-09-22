@@ -68,7 +68,27 @@ dynamicKnowledge
 : ''
 );
 
-const callAnthropic = async () => fetch('https://api.anthropic.com/v1/messages', {
+// Lets Claude actually complete a booking during the conversation,
+// instead of just reciting contact info when someone says "book a call."
+const BOOK_APPOINTMENT_TOOL = {
+name: 'book_appointment',
+description: 'Book a consultation call with the BBG team. Only call this once you have explicitly confirmed the person\'s name, email, and a specific date and time with them in the conversation — never guess or assume these details.',
+input_schema: {
+type: 'object',
+properties: {
+name: { type: 'string' },
+email: { type: 'string' },
+phone: { type: 'string' },
+date: { type: 'string', description: 'Date in YYYY-MM-DD format' },
+time: { type: 'string', description: 'Time, e.g. "2:00 PM"' },
+topic: { type: 'string' },
+budget: { type: 'string' },
+},
+required: ['name', 'email', 'date', 'time'],
+},
+};
+
+const callAnthropic = async (msgs) => fetch('https://api.anthropic.com/v1/messages', {
 method: 'POST',
 headers: {
 'Content-Type': 'application/json',
@@ -79,25 +99,32 @@ body: JSON.stringify({
 model: 'claude-sonnet-5',
 max_tokens: 1000,
 system: fullSystem,
-messages,
+messages: msgs,
+tools: [BOOK_APPOINTMENT_TOOL],
 }),
 });
 
-// Retry once on transient errors (rate limits / momentary overload)
-// before giving up — these are common and usually resolve within a second.
-let response = await callAnthropic();
+// One Anthropic call, with the transient-error retry folded in so both
+// the main turn and the post-tool-use follow-up turn can share it.
+async function callWithRetry(msgs) {
+let response = await callAnthropic(msgs);
 let data = await response.json();
 
 if (!response.ok) {
 const errType = data?.error?.type;
 const isTransient = response.status === 429 || response.status === 529 || errType === 'overloaded_error' || errType === 'rate_limit_error';
-
 if (isTransient) {
 console.warn(`[Kodi Chat] Transient Anthropic API error (${response.status} ${errType}) — retrying once.`);
 await new Promise(r => setTimeout(r, 1000));
-response = await callAnthropic();
+response = await callAnthropic(msgs);
 data = await response.json();
 }
+}
+return { response, data };
+}
+
+let workingMessages = messages;
+let { response, data } = await callWithRetry(workingMessages);
 
 if (!response.ok) {
 // Log the REAL reason so this doesn't stay a mystery next time.
@@ -108,6 +135,41 @@ type: 'text',
 text: 'I apologize — I\'m having a brief technical issue. Please contact our team at +1 437 826 4847.',
 }],
 });
+}
+
+// If Claude decided to book the appointment, actually do it — this is
+// the piece that was missing entirely before: Kodi could only recite
+// contact info, nothing in the chat ever called the booking API.
+if (data?.stop_reason === 'tool_use') {
+const toolUseBlock = data.content?.find(b => b.type === 'tool_use');
+
+if (toolUseBlock && toolUseBlock.name === 'book_appointment') {
+console.log(`[Kodi Booking] Tool call:`, JSON.stringify(toolUseBlock.input));
+let toolResult;
+try {
+toolResult = await performBooking(toolUseBlock.input);
+} catch (err) {
+console.error('[Kodi Booking] performBooking threw:', err);
+toolResult = { success: false, error: 'Internal booking error.' };
+}
+
+workingMessages = [
+...workingMessages,
+{ role: 'assistant', content: data.content },
+{ role: 'user', content: [{ type: 'tool_result', tool_use_id: toolUseBlock.id, content: JSON.stringify(toolResult) }] },
+];
+
+({ response, data } = await callWithRetry(workingMessages));
+
+if (!response.ok) {
+console.error(`[Kodi Chat] Anthropic API error after tool use ${response.status}:`, JSON.stringify(data));
+return res.status(502).json({
+content: [{
+type: 'text',
+text: 'Your appointment request went through, but I had trouble confirming the details back to you. Our team will follow up directly.',
+}],
+});
+}
 }
 }
 
@@ -123,8 +185,7 @@ let textBlock = findTextBlock(data);
 
 if (!textBlock) {
 console.warn(`[Kodi Chat] 200 OK but no usable text block — stop_reason: ${data?.stop_reason}, content: ${JSON.stringify(data?.content)}. Retrying once.`);
-response = await callAnthropic();
-data = await response.json();
+({ response, data } = await callWithRetry(workingMessages));
 textBlock = findTextBlock(data);
 
 if (!textBlock) {
@@ -230,12 +291,21 @@ return parts.join('\n\n');
 // Scrape a single page and extract meaningful text content
 async function scrapePage(url) {
 try {
+// Use a real browser User-Agent and browser-like headers. Self-identifying
+// as a bot ('KodiBot/2.0...') is exactly what most WAFs — including
+// GoDaddy's — silently black-hole rather than reject cleanly, which shows
+// up as a hanging connection (ETIMEDOUT) instead of a clean 403.
+const controller = new AbortController();
+const timeoutId = setTimeout(() => controller.abort(), 15000);
+
 const response = await fetch(url, {
 headers: {
-// Identify ourselves as a legitimate bot
-'User-Agent': 'KodiBot/2.0 (BBG Corp internal crawler)',
+'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36',
+'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+'Accept-Language': 'en-US,en;q=0.9',
 },
-});
+signal: controller.signal,
+}).finally(() => clearTimeout(timeoutId));
 
 if (!response.ok) {
 console.warn(`Failed to fetch ${url}: ${response.status}`);
@@ -258,7 +328,11 @@ const textContent = $('body')
 
 return textContent || null;
 } catch (error) {
-console.error(`Error scraping ${url}:`, error.message);
+// Log the actual error code/cause, not just the message — "ETIMEDOUT"
+// alone doesn't say whether it's a real timeout, a WAF block, or a
+// DNS/network issue, and that distinction is what makes this fixable.
+const reason = error.cause?.code || error.code || error.name;
+console.error(`Error scraping ${url}: ${error.message} (reason: ${reason})`);
 return null;
 }
 }
@@ -512,17 +586,16 @@ onlineMeetingUrl: createdEvent.onlineMeeting?.joinUrl,
 };
 }
 
-// Booking endpoint — called by the chatbot when someone submits the booking form
-app.post('/api/book-appointment', async (req, res) => {
-try {
-const bookingDetails = req.body;
-
-// Validate required fields
+// Shared booking logic — called both by the HTTP route below (kept for
+// any external caller) and by the chat tool-use handler in Section 1,
+// so Kodi can actually complete a booking during a conversation instead
+// of just reciting contact info.
+async function performBooking(bookingDetails) {
 if (!bookingDetails.name || !bookingDetails.email || !bookingDetails.date || !bookingDetails.time) {
-return res.status(400).json({
+return {
 success: false,
 error: 'Name, email, date, and time are required.',
-});
+};
 }
 
 // If Microsoft credentials are configured, create the Outlook event
@@ -531,12 +604,12 @@ const eventResult = await createOutlookEvent(bookingDetails);
 
 console.log(`[Kodi Booking] Created Outlook event for ${bookingDetails.name} on ${bookingDetails.date} at ${bookingDetails.time}`);
 
-return res.json({
+return {
 success: true,
 message: 'Appointment created in Outlook calendar and invitation sent.',
 eventId: eventResult.eventId,
 meetingLink: eventResult.onlineMeetingUrl,
-});
+};
 }
 
 // Fallback: If Outlook is not configured, log the booking
@@ -544,12 +617,23 @@ meetingLink: eventResult.onlineMeetingUrl,
 // with a service like SendGrid, Mailgun, or AWS SES)
 console.log(`[Kodi Booking] New booking (no Outlook configured):`, bookingDetails);
 
-res.json({
+return {
 success: true,
 message: 'Appointment request received. Team will confirm via email.',
 note: 'Outlook integration not configured — booking logged for manual processing.',
-});
+};
+}
 
+// Booking endpoint — kept for any external caller (e.g. a future
+// standalone booking form). Kodi's chat now books via performBooking()
+// directly, through the tool-use handler in Section 1.
+app.post('/api/book-appointment', async (req, res) => {
+try {
+const result = await performBooking(req.body);
+if (!result.success && result.error === 'Name, email, date, and time are required.') {
+return res.status(400).json(result);
+}
+res.json(result);
 } catch (error) {
 console.error('[Kodi Booking] Error:', error);
 res.status(500).json({
