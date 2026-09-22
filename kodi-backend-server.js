@@ -111,6 +111,29 @@ text: 'I apologize — I\'m having a brief technical issue. Please contact our t
 }
 }
 
+// A 200 OK with no usable text is the real bug we were chasing: the HTTP
+// call "succeeds" but the frontend has nothing to show, and it silently
+// falls back to the generic apology with zero server-side error to find.
+// Validate the actual shape and retry once before giving up.
+let hasText = data?.content?.[0]?.text && data.content[0].text.trim().length > 0;
+
+if (!hasText) {
+console.warn(`[Kodi Chat] 200 OK but empty/unusable content — stop_reason: ${data?.stop_reason}, content: ${JSON.stringify(data?.content)}. Retrying once.`);
+response = await callAnthropic();
+data = await response.json();
+hasText = data?.content?.[0]?.text && data.content[0].text.trim().length > 0;
+
+if (!hasText) {
+console.error(`[Kodi Chat] Still empty after retry — stop_reason: ${data?.stop_reason}, full response: ${JSON.stringify(data)}`);
+return res.status(200).json({
+content: [{
+type: 'text',
+text: 'I apologize — I wasn\'t able to put together a full answer to that. Could you try rephrasing, or use one of the buttons below (Investment model, Book a call, Properties)? You can also reach us directly at +1 437 826 4847.',
+}],
+});
+}
+}
+
 res.json(data);
 } catch (error) {
 console.error('[Kodi Chat] Proxy error:', error);
