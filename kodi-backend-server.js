@@ -68,7 +68,7 @@ dynamicKnowledge
 : ''
 );
 
-const response = await fetch('https://api.anthropic.com/v1/messages', {
+const callAnthropic = async () => fetch('https://api.anthropic.com/v1/messages', {
 method: 'POST',
 headers: {
 'Content-Type': 'application/json',
@@ -83,10 +83,37 @@ messages,
 }),
 });
 
-const data = await response.json();
+// Retry once on transient errors (rate limits / momentary overload)
+// before giving up — these are common and usually resolve within a second.
+let response = await callAnthropic();
+let data = await response.json();
+
+if (!response.ok) {
+const errType = data?.error?.type;
+const isTransient = response.status === 429 || response.status === 529 || errType === 'overloaded_error' || errType === 'rate_limit_error';
+
+if (isTransient) {
+console.warn(`[Kodi Chat] Transient Anthropic API error (${response.status} ${errType}) — retrying once.`);
+await new Promise(r => setTimeout(r, 1000));
+response = await callAnthropic();
+data = await response.json();
+}
+
+if (!response.ok) {
+// Log the REAL reason so this doesn't stay a mystery next time.
+console.error(`[Kodi Chat] Anthropic API error ${response.status}:`, JSON.stringify(data));
+return res.status(502).json({
+content: [{
+type: 'text',
+text: 'I apologize — I\'m having a brief technical issue. Please contact our team at +1 437 826 4847.',
+}],
+});
+}
+}
+
 res.json(data);
 } catch (error) {
-console.error('Chat proxy error:', error);
+console.error('[Kodi Chat] Proxy error:', error);
 res.status(500).json({
 content: [{
 type: 'text',
